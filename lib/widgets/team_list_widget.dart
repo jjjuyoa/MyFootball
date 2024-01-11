@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myfootball/screens/%08team_screen.dart';
 import 'package:myfootball/services/api_service.dart';
 import 'package:myfootball/models/match_model.dart';
 
@@ -14,7 +15,7 @@ class _TeamListWidgetState extends State<TeamListWidget> {
   @override
   void initState() {
     super.initState();
-    futureMatchModel = ApiService().getMatchSample();
+    futureMatchModel = ApiService.getMatchSample();
   }
 
   @override
@@ -29,33 +30,49 @@ class _TeamListWidgetState extends State<TeamListWidget> {
             ),
             itemCount: snapshot.data!.standings[0].table.length,
             itemBuilder: (context, index) {
-              return Card(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 120,
-                      width: 120,
-                      child: snapshot.data!.standings[0].table[index].team.crest
-                              .endsWith('.svg')
-                          ? SvgPicture.network(
-                              snapshot
-                                  .data!.standings[0].table[index].team.crest,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.network(
-                              snapshot
-                                  .data!.standings[0].table[index].team.crest,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(snapshot.data!.standings[0].table[index].team.name),
-                  ],
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TeamScreen(
+                                emblem: snapshot
+                                    .data!.standings[0].table[index].team.crest,
+                                name: snapshot
+                                    .data!.standings[0].table[index].team.name,
+                                teamId: snapshot
+                                    .data!.standings[0].table[index].team.id,
+                              )));
+                },
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        height: 120,
+                        width: 120,
+                        child: snapshot
+                                .data!.standings[0].table[index].team.crest
+                                .endsWith('.svg')
+                            ? SvgPicture.network(
+                                snapshot
+                                    .data!.standings[0].table[index].team.crest,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                snapshot
+                                    .data!.standings[0].table[index].team.crest,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(snapshot.data!.standings[0].table[index].team.name),
+                    ],
+                  ),
                 ),
               );
             },
