@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myfootball/services/api_service.dart';
 import 'package:myfootball/models/team_match_info_model.dart';
+import 'package:myfootball/widgets/match_info.dart';
 
 class TeamScreen extends StatefulWidget {
   final String emblem, name;
@@ -24,11 +25,12 @@ class _TeamScreenState extends State<TeamScreen> {
   @override
   void initState() {
     super.initState();
-    futureTeamMatchInfoModel = ApiService.getMatchInfo();
+    futureTeamMatchInfoModel = ApiService.getMatchInfo(widget.teamId);
   }
 
   @override
   Widget build(BuildContext context) {
+    print("${widget.teamId}");
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -73,6 +75,24 @@ class _TeamScreenState extends State<TeamScreen> {
                 height: 20,
               ),
               //여기가 경기 일정 들어갈 자리
+              FutureBuilder<TeamMatchInfoModel>(
+                future: futureTeamMatchInfoModel,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text("오류가 발생했습니다.");
+                  } else {
+                    List<Widget> matchWidgets = [];
+                    for (var match in snapshot.data!.matches) {
+                      matchWidgets.add(MatchInfo(matches: match));
+                    }
+                    return Column(
+                      children: matchWidgets,
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),
