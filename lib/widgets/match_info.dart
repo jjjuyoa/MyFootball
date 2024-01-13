@@ -37,7 +37,7 @@ class MatchInfo extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 10,
-              horizontal: 20,
+              horizontal: 15,
             ),
             child: Column(
               children: [
@@ -96,7 +96,6 @@ class MatchInfo extends StatelessWidget {
                     ),
                   ],
                 ),
-                // ... 나머지 코드
               ],
             )),
       ),

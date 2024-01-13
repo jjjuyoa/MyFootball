@@ -43,7 +43,7 @@ class _TeamScreenState extends State<TeamScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(50),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Row(
