@@ -38,8 +38,8 @@ class _TeamListWidgetState extends State<TeamListWidget> {
                           builder: (context) => TeamScreen(
                                 emblem: snapshot
                                     .data!.standings[0].table[index].team.crest,
-                                name: snapshot
-                                    .data!.standings[0].table[index].team.name,
+                                name: snapshot.data!.standings[0].table[index]
+                                    .team.shortName,
                                 teamId: snapshot
                                     .data!.standings[0].table[index].team.id,
                               )));
@@ -68,7 +68,7 @@ class _TeamListWidgetState extends State<TeamListWidget> {
                               ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 14,
                       ),
                       Text(snapshot.data!.standings[0].table[index].team.name),
                     ],

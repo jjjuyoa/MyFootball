@@ -8,10 +8,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 27, 25, 25),
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 31, 31, 33),
         foregroundColor: Colors.blue,
         title: const Text(
           "팀을 선택해주세요.",

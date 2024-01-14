@@ -32,9 +32,10 @@ class _TeamScreenState extends State<TeamScreen> {
   Widget build(BuildContext context) {
     print("${widget.teamId}");
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 27, 25, 25),
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 31, 31, 33),
         foregroundColor: Colors.blue,
         title: Text(
           widget.name,
@@ -43,7 +44,8 @@ class _TeamScreenState extends State<TeamScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          //경기 일정 width 조절하는 곳
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Row(
@@ -54,6 +56,10 @@ class _TeamScreenState extends State<TeamScreen> {
                     child: Container(
                       width: 250,
                       height: 250,
+                      margin: EdgeInsets.only(
+                        top: 50,
+                        bottom: 30,
+                      ),
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -85,7 +91,12 @@ class _TeamScreenState extends State<TeamScreen> {
                   } else {
                     List<Widget> matchWidgets = [];
                     for (var match in snapshot.data!.matches) {
-                      matchWidgets.add(MatchInfo(matches: match));
+                      // utcDate를 DateTime 객체로 변환
+                      DateTime matchDate = DateTime.parse(match.utcDate);
+                      //현재 시간 이후의 경기만 추가
+                      if (DateTime.now().difference(matchDate).inDays <= 0) {
+                        matchWidgets.add(MatchInfo(matches: match));
+                      }
                     }
                     return Column(
                       children: matchWidgets,
