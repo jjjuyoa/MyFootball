@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myfootball/models/team_match_info_model.dart';
+import 'package:intl/intl.dart';
 
 class MatchInfo extends StatefulWidget {
   const MatchInfo({
@@ -22,6 +23,9 @@ class _MatchInfoState extends State<MatchInfo> {
     String homeTeamEmblem = widget.matches.homeTeam.crest;
     String awayTeamEmblem = widget.matches.awayTeam.crest;
     String utcDate = widget.matches.utcDate;
+
+    DateTime dateTime = DateTime.parse(utcDate).toLocal();
+    String formattedString = DateFormat('yyyy년 MM월 dd일 HH:mm').format(dateTime);
 
     var isChecked = false;
 
@@ -113,7 +117,7 @@ class _MatchInfoState extends State<MatchInfo> {
               ),
               Container(
                 child: Text(
-                  "$utcDate",
+                  "$formattedString",
                   style: TextStyle(color: Colors.green),
                 ),
               ),
