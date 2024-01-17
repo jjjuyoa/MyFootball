@@ -36,7 +36,7 @@ class _TeamScreenState extends State<TeamScreen> {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Color.fromARGB(255, 31, 31, 33),
-        foregroundColor: Colors.blue,
+        foregroundColor: Colors.green,
         title: Text(
           widget.name,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
