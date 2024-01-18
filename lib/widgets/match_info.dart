@@ -16,6 +16,7 @@ class MatchInfo extends StatefulWidget {
 }
 
 class _MatchInfoState extends State<MatchInfo> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     String homeTeamName = widget.matches.homeTeam.shortName;
@@ -26,8 +27,6 @@ class _MatchInfoState extends State<MatchInfo> {
 
     DateTime dateTime = DateTime.parse(utcDate).toLocal();
     String formattedString = DateFormat('yyyy년 MM월 dd일 HH:mm').format(dateTime);
-
-    var isChecked = false;
 
     return GestureDetector(
       child: Container(
@@ -63,6 +62,7 @@ class _MatchInfoState extends State<MatchInfo> {
                           onChanged: (value) {
                             setState(() {
                               isChecked = value!;
+                              print("check the switch!!");
                             });
                           }),
                       Container(
