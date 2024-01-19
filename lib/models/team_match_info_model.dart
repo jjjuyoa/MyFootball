@@ -83,6 +83,7 @@ class Matches {
   final int matchday;
   final HomeTeam homeTeam;
   final AwayTeam awayTeam;
+  final int id;
 
   Matches({
     required this.utcDate,
@@ -90,6 +91,7 @@ class Matches {
     required this.matchday,
     required this.homeTeam,
     required this.awayTeam,
+    required this.id,
   });
 
   factory Matches.fromJson(Map<String, dynamic> json) {
@@ -99,6 +101,7 @@ class Matches {
       matchday: json['matchday'],
       homeTeam: HomeTeam.fromJson(json['homeTeam']),
       awayTeam: AwayTeam.fromJson(json['awayTeam']),
+      id: json['id'],
     );
   }
 }

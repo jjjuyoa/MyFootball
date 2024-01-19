@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myfootball/models/team_match_info_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 class MatchInfo extends StatefulWidget {
@@ -17,6 +18,31 @@ class MatchInfo extends StatefulWidget {
 
 class _MatchInfoState extends State<MatchInfo> {
   bool isChecked = false;
+  late int matchId;
+
+  Future<void> setSwitchState(int key, bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(key.toString(), value);
+  }
+
+// 값을 불러오는 함수
+  Future<bool> getSwitchState(int key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool value = prefs.getBool(key.toString()) ?? false;
+    return value;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    matchId = widget.matches.id;
+    getSwitchState(matchId).then((value) {
+      setState(() {
+        isChecked = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     String homeTeamName = widget.matches.homeTeam.shortName;
@@ -59,11 +85,13 @@ class _MatchInfoState extends State<MatchInfo> {
                     children: [
                       Switch(
                           value: isChecked,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             setState(() {
                               isChecked = value!;
+
                               print("check the switch!!");
                             });
+                            await setSwitchState(matchId, isChecked);
                           }),
                       Container(
                         height: 30,
@@ -97,7 +125,7 @@ class _MatchInfoState extends State<MatchInfo> {
                           fontSize: 12,
                         ),
                       ),
-                      SizedBox(width: 8), //간격을 주기 위한 SizedBox
+                      SizedBox(width: 8),
                       Container(
                         height: 30,
                         width: 30,
