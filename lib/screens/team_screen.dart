@@ -32,11 +32,10 @@ class _TeamScreenState extends State<TeamScreen> {
   Widget build(BuildContext context) {
     print("${widget.teamId}");
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 27, 25, 25),
       appBar: AppBar(
         elevation: 2,
         backgroundColor: Color.fromARGB(255, 31, 31, 33),
-        foregroundColor: Colors.green,
+        foregroundColor: Colors.blue,
         title: Text(
           widget.name,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),

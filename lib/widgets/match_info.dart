@@ -56,8 +56,8 @@ class _MatchInfoState extends State<MatchInfo> {
 
     return GestureDetector(
       child: Container(
-        height: 100,
-        margin: EdgeInsets.only(bottom: 10),
+        height: 90,
+        margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
